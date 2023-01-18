@@ -8,3 +8,15 @@
 Python project repository template for developing python package.
 
 This repository contains a template for developing a python project. To start, click on the green [Use this template](https://github.com/uw-ssec/python-project-template/generate) in the top right. This will allow you to create a new project using this base template.
+
+## What's included
+
+This template contains the following:
+
+1. Python package setup files for building python package to a distribution.
+2. Basic license file (currently MIT, but can be modified to specific project).
+See [choose a license](https://choosealicense.com/) for more licenses.
+3. Starter [Jupyter Book](https://jupyterbook.org) based documentation structure.
+4. Single test example to demonstrate the use of pytest.
+5. [Github workflow](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions) config to run tests.
+6. [Pre-commit](https://pre-commit.com/) config to enable code style checks before committing.
