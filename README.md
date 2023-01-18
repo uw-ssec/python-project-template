@@ -14,9 +14,11 @@ This repository contains a template for developing a python project. To start, c
 This template contains the following:
 
 1. Python package setup files for building python package to a distribution.
+See [PyPA packaging user guide](https://packaging.python.org/en/latest/) for more info.
 2. Basic license file (currently MIT, but can be modified to specific project).
 See [choose a license](https://choosealicense.com/) for more licenses.
 3. Starter [Jupyter Book](https://jupyterbook.org) based documentation structure.
-4. Single test example to demonstrate the use of pytest.
+4. Single test example to demonstrate the use of [pytest](https://docs.pytest.org/en/7.2.x/).
 5. [Github workflow](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions) config to run tests.
 6. [Pre-commit](https://pre-commit.com/) config to enable code style checks before committing.
+7. [Read The Docs](https://readthedocs.org/) config to enable free hosting of documentation.
