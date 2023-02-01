@@ -23,3 +23,12 @@ See [choose a license](https://choosealicense.com/) for more licenses.
 5. [Github workflow](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions) config to run tests.
 6. [Pre-commit](https://pre-commit.com/) config to enable code style checks before committing.
 7. [Read The Docs](https://readthedocs.org/) config to enable free hosting of documentation.
+
+## Open source licensing
+
+Statement from Schmidt Futures:
+
+*Schmidt Futures expects that any code from projects funded by Schmidt Futures be released as open source under an OSI-approved permissive license (such as Apache v2.0 or MIT).
+We recommend that projects avoid using GPL due to known complexities associated with it.
+We encourage projects to publish data used for peer-reviewed scientific articles along with the code used to produce the results.
+Additionally, we recommend avoiding any license modifications for simplicity, and alignment with standard practices.*
