@@ -28,7 +28,7 @@ See [choose a license](https://choosealicense.com/) for more licenses.
 
 Statement from Schmidt Futures:
 
-*Schmidt Futures expects that any code from projects funded by Schmidt Futures be released as open source under an OSI-approved permissive license (such as Apache v2.0 or MIT).
+*Schmidt Futures expects that any code from projects funded by Schmidt Futures be released as open source under an [OSI](https://opensource.org/licenses)-approved permissive license (such as [Apache v2.0](https://choosealicense.com/licenses/apache-2.0/) or [MIT](https://choosealicense.com/licenses/mit/)).
 We recommend that projects avoid using GPL due to known complexities associated with it.
 We encourage projects to publish data used for peer-reviewed scientific articles along with the code used to produce the results.
 Additionally, we recommend avoiding any license modifications for simplicity, and alignment with standard practices.*
