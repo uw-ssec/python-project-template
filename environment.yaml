@@ -1,0 +1,8 @@
+name: ssec_project
+channels:
+- conda-forge
+dependencies:
+- python=3.8
+- pip
+- pip:
+  - -r requirements.txt

@@ -1,7 +1,7 @@
 [build-system]
 requires = [
     "setuptools >= 66",
-    "setuptools_scm >= 7.0.0",
+    "setuptools_scm[toml]>=6.2",
     "wheel >= 0.38.4",
 ]
 build-backend = 'setuptools.build_meta'
@@ -9,4 +9,4 @@ build-backend = 'setuptools.build_meta'
 [tool.setuptools_scm]
 fallback_version = "unknown"
 local_scheme = "node-and-date"
-write_to = "ssec_project/version.py"
+write_to = "src/ssec_project/version.py"
