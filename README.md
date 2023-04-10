@@ -23,6 +23,7 @@ See [choose a license](https://choosealicense.com/) for more licenses.
 5. [Github workflow](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions) config to run tests.
 6. [Pre-commit](https://pre-commit.com/) config to enable code style checks before committing.
 7. [Read The Docs](https://readthedocs.org/) config to enable free hosting of documentation.
+8. Code coverage analysis with [`coverage.py`](https://coverage.readthedocs.io/en/7.2.3/) via [`pytest-cov`](https://pytest-cov.readthedocs.io/en/latest/).
 
 ## Open source licensing
 
