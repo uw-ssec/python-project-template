@@ -32,8 +32,12 @@ jobs:
         set -o pipefail
         pytest -vvv --cov=${{ env.PROJECT_NAME }} --cov-report=xml --cov-report=term tests/ |& tee ${{ env.LOG_FILE }}
     - name: Capture job summary
+      shell: python
       run: |
-        python -c "from pathlib import Path; log_file=Path('${{ env.LOG_FILE }}'); md_text='```\n' + log_file.read_text() + '```'; print(md_text)" >> $GITHUB_STEP_SUMMARY
+        from pathlib import Path
+        log_file=Path(os.environ.get('LOG_FILE'))
+        md_text=f"```\n{log_file.read_text()}```"
+        Path.write_text(os.environ.get('GITHUB_STEP_SUMMARY'))
     - name: Upload unit test log
       if: ${{ success() || failure() }}
       uses: actions/upload-artifact@v3.1.2
