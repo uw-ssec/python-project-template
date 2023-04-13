@@ -37,7 +37,7 @@ jobs:
         from pathlib import Path
         log_file=Path(os.environ.get('LOG_FILE'))
         md_text=f"```\n{log_file.read_text()}```"
-        Path.write_text(os.environ.get('GITHUB_STEP_SUMMARY'))
+        Path(os.environ.get('GITHUB_STEP_SUMMARY')).write_text(md_text)
     - name: Upload unit test log
       if: ${{ success() || failure() }}
       uses: actions/upload-artifact@v3.1.2
