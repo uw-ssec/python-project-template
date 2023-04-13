@@ -34,6 +34,7 @@ jobs:
     - name: Capture job summary
       shell: python
       run: |
+        import os
         from pathlib import Path
         log_file=Path(os.environ.get('LOG_FILE'))
         md_text=f"```\n{log_file.read_text()}```"
