@@ -1,17 +1,15 @@
 Thank you for your contribution to the repo. Before submitting this PR, please make sure of the following:
 
-## Bug Description (or Root Cause)
-- [] <link _to_the_issue_that_the_PR_fixes>
+## Change Description (or Root Cause)
+- [] Link to the PR you are addressing
+[How to link to a PR](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue)
 
 ## Solution Description
 - [] Explain the technical solution you have provided and how it fixes the issue case
-- [] Provide a list of external packages/dependencies used in your solution
 
 ## Code Quality
-- [] Your code builds clean without any errors or warnings
+- [] Your code builds (or compiles) cleanly without any errors or warnings
 - [] Your code contains relevant comments and necessary documentation
-- [] You are using approved terminology
 
 ## Covered unit test cases/E2E (End-to-End) test cases
-- [] You have added unit tests and/or E2E test cases recorded for this fix
-- [] Provide a list of the test packages/dependencies used
+- [] If necessary, you have added unit tests and/or E2E test cases recorded for this fix
