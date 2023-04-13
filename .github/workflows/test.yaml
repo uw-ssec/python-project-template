@@ -33,7 +33,7 @@ jobs:
         pytest -vvv --cov=${{ env.PROJECT_NAME }} --cov-report=xml --cov-report=term tests/ |& tee ${{ env.LOG_FILE }}
     - name: Capture job summary
       run: |
-        python -c "from pathlib import Path; log_file=Path(${{ env.LOG_FILE }}); print(log_file.absolute())"
+        python -c "from pathlib import Path; log_file=Path('${{ env.LOG_FILE }}'); print(log_file.read_text())"
     - name: Upload unit test log
       if: ${{ success() || failure() }}
       uses: actions/upload-artifact@v3.1.2
