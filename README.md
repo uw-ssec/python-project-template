@@ -6,9 +6,10 @@
 [![CI](https://github.com/uw-ssec/python-project-template/actions/workflows/ci.yaml/badge.svg)](https://github.com/uw-ssec/python-project-template/actions/workflows/ci.yaml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/uw-ssec/python-project-template/main.svg)](https://results.pre-commit.ci/latest/github/uw-ssec/python-project-template/main)
 
-Python project repository template for developing python package.
-This template includes a basic structure for developing a python package, including a license, documentation, testing, and continuous integration.
-It is based on the [Scientific Python Library Development Guide and Cookiecutter](https://github.com/scientific-python/cookie).
+Python project repository template for developing python package. This template
+includes a basic structure for developing a python package, including a license,
+documentation, testing, and continuous integration. It is based on the
+[Scientific Python Library Development Guide and Cookiecutter](https://github.com/scientific-python/cookie).
 
 This repository contains a template for developing a python project. To start,
 click on the green
