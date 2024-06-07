@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import argparse
 import shutil
 from pathlib import Path
 
@@ -10,15 +9,15 @@ DIR = Path(__file__).parent.resolve()
 
 nox.options.sessions = ["lint", "tests"]
 
+
 @nox.session
 def lint(session: nox.Session) -> None:
     """
     Run the linter.
     """
     session.install("pre-commit")
-    session.run(
-        "pre-commit", "run", "--all-files", "--show-diff-on-failure", *session.posargs
-    )
+    session.run("pre-commit", "run", "--all-files", "--show-diff-on-failure", *session.posargs)
+
 
 @nox.session
 def tests(session: nox.Session) -> None:
