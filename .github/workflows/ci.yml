@@ -15,6 +15,7 @@ env:
   # Many color libraries just need this to be set to any value, but at least
   # one distinguishes color depth, where "3" -> "256-bit color".
   FORCE_COLOR: 3
+  PROJECT_NAME: "ssec_project"
 
 jobs:
   pre-commit:
@@ -56,8 +57,8 @@ jobs:
 
       - name: Test package
         run: >-
-          python -m pytest -ra --cov --cov-report=xml --cov-report=term
-          --durations=20
+          python -m pytest -ra --cov=${{ env.PROJECT_NAME }} --cov-report=xml
+          --cov-report=term --durations=20
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v4.4.1
