@@ -45,7 +45,7 @@ file = "LICENSE"
 
 [project.urls]
 Homepage = "https://github.com/uw-ssec/python-project-template"
-Documentation = "https://ssec_project.readthedocs.io"
+Documentation = "https://ssec-python-project-template.readthedocs.io"
 Repository = "https://github.com/uw-ssec/python-project-template.git"
 Issues = "https://github.com/uw-ssec/python-project-template/issues"
 
