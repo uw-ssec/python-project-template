@@ -47,9 +47,9 @@ This template contains the following:
 
 ## Open source licensing
 
-Statement from Schmidt Futures:
+Statement from Schmidt Sciences:
 
-_Schmidt Futures expects that any code from projects funded by Schmidt Futures
+_Schmidt Sciences expects that any code from projects funded by Schmidt Sciences
 be released as open source under an
 [OSI](https://opensource.org/licenses)-approved permissive license (such as
 [Apache v2.0](https://choosealicense.com/licenses/apache-2.0/) or
