@@ -47,14 +47,5 @@ This template contains the following:
 
 ## Open source licensing
 
-Statement from Schmidt Sciences:
-
-_Schmidt Sciences expects that any code from projects funded by Schmidt Sciences
-be released as open source under an
-[OSI](https://opensource.org/licenses)-approved permissive license (such as
-[Apache v2.0](https://choosealicense.com/licenses/apache-2.0/) or
-[MIT](https://choosealicense.com/licenses/mit/)). We recommend that projects
-avoid using GPL due to known complexities associated with it. We encourage
-projects to publish data used for peer-reviewed scientific articles along with
-the code used to produce the results. Additionally, we recommend avoiding any
-license modifications for simplicity, and alignment with standard practices._
+We encourage that any software that is built upon this template
+to be licensed with an [OSI Approved Licenses](https://opensource.org/licenses)
