@@ -47,5 +47,5 @@ This template contains the following:
 
 ## Open source licensing
 
-We encourage that any software that is built upon this template
-to be licensed with an [OSI Approved Licenses](https://opensource.org/licenses)
+We encourage that any software that is built upon this template to be licensed
+with an [OSI Approved Licenses](https://opensource.org/licenses)
