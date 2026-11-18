@@ -44,6 +44,29 @@ This template contains the following:
 8. Code coverage analysis with
    [`coverage.py`](https://coverage.readthedocs.io/en/7.2.3/) via
    [`pytest-cov`](https://pytest-cov.readthedocs.io/en/latest/).
+9. [Pixi](https://pixi.sh) workspace configured in `pyproject.toml`, with a
+   committed `pixi.lock` for reproducible environments across Linux, macOS, and
+   Windows.
+
+## Development with pixi
+
+[Install pixi](https://pixi.sh/latest/#installation), then run tasks from the
+repository root. Pixi creates and caches the environments on first use.
+
+```bash
+pixi run test          # run the test suite (default environment)
+pixi run test-cov      # run tests with coverage
+pixi run lint          # run all pre-commit hooks
+pixi run -e docs docs  # build the Jupyter Book documentation
+pixi run -e build build  # build the sdist and wheel
+pixi run -e py311 test # run tests against a specific Python (py311 to py315)
+pixi task list         # show every available task
+```
+
+Dependencies are declared once in `[project]` and
+`[project.optional-dependencies]`. Pixi reads them from there, so `pip install`
+and `pixi` stay in sync. After changing dependencies, run `pixi lock` and commit
+the updated `pixi.lock`.
 
 ## Open source licensing
 
