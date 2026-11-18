@@ -57,7 +57,7 @@ jobs:
       matrix:
         # Each entry is a pixi environment defined in pyproject.toml
         environment: [py311, py312, py313, py314, py315]
-        runs-on: [ubuntu-latest, windows-latest, macos-14]
+        runs-on: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
