@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling", "hatch-vcs"]
+requires = ["hatchling>=1.27", "hatch-vcs>=0.5"]
 build-backend = "hatchling.build"
 
 [project]
@@ -8,40 +8,53 @@ dynamic = ["version"]
 description = "Python project repository template for developing python package."
 readme = "README.md"
 requires-python = ">=3.11"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Build Tools",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dependencies = ["requests", "pandas"]
+# Lower bounds are set at the first release free of all known advisories
+# (checked against OSV, 2026-11-18). Raise them when new advisories land.
+dependencies = [
+    "requests>=2.33.0", # GHSA-gc5v-m9x4-r6x2, GHSA-9hjg-9r4m-mvj7
+    "pandas>=3.0",
+]
 
 [project.optional-dependencies]
+test = [
+    "pytest>=9",
+    "pytest-cov>=7",
+    "pytest-xdist>=3.8",
+    "pytest-mock>=3.15",
+]
 dev = [
-    "pre-commit",
-    "nox",
-    "pytest>=6",
-    "pytest-cov",
-    "pytest-xdist",
-    "pytest-mock",
+    "ssec_project[test]",
+    "pre-commit>=4.3",
+    "nox>=2025.10.16",
 ]
 docs = [
-    "sphinx_rtd_theme",
-    "sphinx-automodapi",
-    "sphinx-panels",
-    "sphinxcontrib-mermaid",
-    "jupyter-book",
-    "numpydoc",
+    # Jupyter Book 2 is a rewrite on mystmd; the Sphinx-based build used by
+    # .readthedocs.yml (`jupyter-book config sphinx`) requires the 1.x series.
+    "jupyter-book>=1.0.4,<2",
+    "sphinx-rtd-theme>=3.0",
+    "sphinx-automodapi>=0.20",
+    "sphinx-design>=0.6", # replaces the unmaintained sphinx-panels
+    "sphinxcontrib-mermaid>=1.0",
+    "numpydoc>=1.9",
 ]
 all = ["ssec_project[dev,docs]"]
-
-[project.license]
-file = "LICENSE"
 
 [project.urls]
 Homepage = "https://github.com/uw-ssec/python-project-template"
@@ -59,15 +72,85 @@ version-file = "src/ssec_project/version.py"
 local_scheme = "no-local-version"
 
 [tool.hatch.build.targets.sdist]
-exclude = ["/tests"]
+exclude = ["/tests", "/pixi.lock"]
+
+# ---------------------------------------------------------------------------
+# Pixi: reproducible, lockfile-backed environments (https://pixi.sh)
+#
+# Each optional-dependency group above (test, dev, docs, all) is picked up
+# automatically by pixi as a feature of the same name. Conda-forge provides
+# Python and the compiled scientific stack; everything else comes from PyPI.
+# ---------------------------------------------------------------------------
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+requires-pixi = ">=0.60"
+
+[tool.pixi.dependencies]
+python = ">=3.11"
+requests = ">=2.33.0"
+pandas = ">=3.0"
+
+[tool.pixi.pypi-dependencies]
+ssec_project = { path = ".", editable = true }
+
+[tool.pixi.feature.test.tasks]
+test = { cmd = "pytest", description = "Run the test suite" }
+test-cov = { cmd = "pytest --cov=ssec_project --cov-report=term --cov-report=xml", description = "Run the test suite with coverage" }
+
+[tool.pixi.feature.dev.tasks]
+lint = { cmd = "pre-commit run --all-files --show-diff-on-failure", description = "Run all pre-commit hooks" }
+pre-commit-install = { cmd = "pre-commit install", description = "Install the git pre-commit hook" }
+
+[tool.pixi.feature.docs.tasks]
+docs = { cmd = "jupyter-book build docs", description = "Build the Jupyter Book documentation" }
+
+[tool.pixi.feature.build.dependencies]
+python-build = ">=1.3"
+
+[tool.pixi.feature.build.tasks]
+build = { cmd = "python -m build", description = "Build the sdist and wheel" }
+
+[tool.pixi.feature.py311.dependencies]
+python = "3.11.*"
+
+[tool.pixi.feature.py312.dependencies]
+python = "3.12.*"
+
+[tool.pixi.feature.py313.dependencies]
+python = "3.13.*"
+
+[tool.pixi.feature.py314.dependencies]
+python = "3.14.*"
+
+[tool.pixi.feature.py315.dependencies]
+python = "3.15.*"
+
+[tool.pixi.environments]
+default = { features = ["test", "dev"], solve-group = "default" }
+# Matches the Python version used by .readthedocs.yml
+docs = ["docs", "py313"]
+build = { features = ["build"], no-default-feature = true }
+py311 = ["py311", "test"]
+py312 = ["py312", "test"]
+py313 = ["py313", "test"]
+py314 = ["py314", "test"]
+py315 = ["py315", "test"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = ["-vvv", "-ra", "--showlocals", "--strict-markers", "--strict-config"]
 xfail_strict = false
 filterwarnings = ["error"]
+log_level = "INFO"
 log_cli_level = "INFO"
 testpaths = ["tests"]
+
+[tool.repo-review]
+ignore = [
+    "PP006",  # dev tools are kept as extras so `pip install .[dev]` and RTD keep working
+    "SEC001", # zizmor runs via .github/workflows/zizmor.yml (org-managed workflow)
+]
 
 [tool.mypy]
 files = ["src", "tests"]
