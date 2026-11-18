@@ -11,56 +11,73 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 env:
   # Many color libraries just need this to be set to any value, but at least
   # one distinguishes color depth, where "3" -> "256-bit color".
   FORCE_COLOR: 3
   PROJECT_NAME: "ssec_project"
+  PIXI_VERSION: "v0.83.0"
 
 jobs:
   pre-commit:
     name: Format
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v6
+          persist-credentials: false
+
+      - uses: prefix-dev/setup-pixi@9936258fee697aff89b3fed6ca1f80a382ef694e # v0.11.3
         with:
-          python-version: "3.x"
-      - uses: pre-commit/action@v3.0.1
+          pixi-version: ${{ env.PIXI_VERSION }}
+          environments: default
+          locked: true
+          cache: true
+          cache-write:
+            ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          extra_args: --hook-stage manual --all-files
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Run pre-commit
+        run: pixi run lint --hook-stage manual
 
   checks:
-    name: Check Python ${{ matrix.python-version }} on ${{ matrix.runs-on }}
+    name: Check ${{ matrix.environment }} on ${{ matrix.runs-on }}
     runs-on: ${{ matrix.runs-on }}
     needs: [pre-commit]
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.13", "3.14", "3.15"]
+        # Each entry is a pixi environment defined in pyproject.toml
+        environment: [py311, py312, py313, py314, py315]
         runs-on: [ubuntu-latest, windows-latest, macos-14]
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - uses: actions/setup-python@v6
+      - uses: prefix-dev/setup-pixi@9936258fee697aff89b3fed6ca1f80a382ef694e # v0.11.3
         with:
-          python-version: ${{ matrix.python-version }}
-          allow-prereleases: true
-
-      - name: Install package
-        run: python -m pip install ".[dev]"
+          pixi-version: ${{ env.PIXI_VERSION }}
+          environments: ${{ matrix.environment }}
+          locked: true
+          cache: true
+          cache-write:
+            ${{ github.event_name == 'push' && github.ref_name == 'main' }}
 
       - name: Test package
-        run: >-
-          python -m pytest -ra --cov=${{ env.PROJECT_NAME }} --cov-report=xml
-          --cov-report=term --durations=20
+        run: pixi run -e ${{ matrix.environment }} test-cov --durations=20
 
       - name: Upload coverage report
-        uses: codecov/codecov-action@v5.5.2
+        uses: codecov/codecov-action@0fb7174895f61a3b6b78fc075e0cd60383518dac # v5.5.5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

@@ -42,7 +42,6 @@ test = [
 dev = [
     "ssec_project[test]",
     "pre-commit>=4.3",
-    "nox>=2025.10.16",
 ]
 docs = [
     # Jupyter Book 2 is a rewrite on mystmd; the Sphinx-based build used by
@@ -109,7 +108,8 @@ docs = { cmd = "jupyter-book build docs", description = "Build the Jupyter Book 
 python-build = ">=1.3"
 
 [tool.pixi.feature.build.tasks]
-build = { cmd = "python -m build", description = "Build the sdist and wheel" }
+clean-dist = { cmd = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\"", description = "Remove previous build artifacts" }
+build = { cmd = "python -m build", depends-on = ["clean-dist"], description = "Build the sdist and wheel" }
 
 [tool.pixi.feature.py311.dependencies]
 python = "3.11.*"
@@ -206,4 +206,3 @@ isort.required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["T20"]
-"noxfile.py" = ["T20"]
